@@ -9,6 +9,8 @@ development. Tools are written in TypeScript, compiled with
 [Bun](https://bun.sh) into standalone executables, and installable
 individually.
 
+Current targets: NMOS 6502 and 65C816.
+
 ## Project layout
 
 ```
@@ -20,5 +22,18 @@ sixfive/
 ├── .gitignore
 ├── packages/             # one dir per tool + shared core
 ├── scripts/              # build/release helpers
+├── dist/                 # compiled binaries
 └── .github/workflows/
 ```
+
+## Install
+
+_Coming soon._
+
+## Usage
+
+_Coming soon._
+
+## Tools
+
+_Coming soon._

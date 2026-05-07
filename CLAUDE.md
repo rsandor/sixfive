@@ -17,7 +17,6 @@ tool packages are added ad-hoc.
 
 - Tests: `bun test`
 - Compile a tool: `bun build --compile`
-- Root dispatch scripts: TBD
 
 ## Rules
 

@@ -16,12 +16,12 @@ Current targets: NMOS 6502 and 65C816.
 ```
 sixfive/
 ├── package.json          # bun workspaces root
-├── tsconfig.base.json
-├── bun.lockb
+├── tsconfig.json
+├── bun.lock
+├── biome.json
 ├── README.md
 ├── .gitignore
 ├── packages/             # one dir per tool + shared core
-├── scripts/              # build/release helpers
 ├── dist/                 # compiled binaries
 └── .github/workflows/
 ```

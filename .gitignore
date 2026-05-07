@@ -1,2 +1,7 @@
 # VSCode workspace
 sixfive.code-workspace
+
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store

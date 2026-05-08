@@ -32,6 +32,8 @@ packages are added ad-hoc.
   library. No runtime deps in any `packages/*/package.json`.
 - Dev dependencies: ask for explicit approval before adding any.
 - Filenames: `kebab-case.ts`.
+- Never read files in `./.tmp/`. Scratch dir, contents off-limits to
+  agents (including globs/greps that traverse it).
 - Exports: named only. No `default` exports. No barrel `index.ts`
   re-exports — import direct from the source file.
 - Style: functional by default. Classes are allowed when they fit the

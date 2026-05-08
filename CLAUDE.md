@@ -4,8 +4,8 @@
 executables. Bun workspaces monorepo under `packages/` (one dir per tool +
 shared core).
 
-Current scope: NMOS 6502 and 65C816. Only `@sixfive/core` exists today;
-tool packages are added ad-hoc.
+Current scope: NMOS 6502. Only `@sixfive/core` exists today; tool
+packages are added ad-hoc.
 
 ## Layout
 
@@ -43,3 +43,16 @@ tool packages are added ad-hoc.
 
 - Lint + format: Biome. CI fails on violations.
 - CI runs on every push and PR: `bun test`, `tsc --noEmit`, Biome check.
+
+## 6502 reference
+
+`docs/6502-reference.md` = canonical NMOS 6502 spec. Built for grep.
+
+- Read before touching opcodes, addressing modes, cycles, flags, or
+  interrupts.
+- Lookup: §4 hex→opcode, §6 mnemonic→opcodes, §3 modes, §5 semantics,
+  §2 quirks.
+- §5 pseudo-code is the spec. Code disagrees → code wrong.
+- Check §2 for edge cases. Don't re-derive from memory.
+- Scope: NMOS only. No 65C02, 65C816, or illegal opcodes.
+- Edit only on verified errata.

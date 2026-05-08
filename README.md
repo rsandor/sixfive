@@ -9,7 +9,7 @@ development. Tools are written in TypeScript, compiled with
 [Bun](https://bun.sh) into standalone executables, and installable
 individually.
 
-Current targets: NMOS 6502 and 65C816.
+Current target: NMOS 6502.
 
 ## Project layout
 

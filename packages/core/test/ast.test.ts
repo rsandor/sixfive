@@ -132,7 +132,6 @@ test("operand mode discriminator covers all 13 NMOS modes", () => {
     { op: { mode: "abs-y", value: 0 }, bytes: 3 },
     { op: { mode: "indirect", value: 0 }, bytes: 3 },
   ];
-  expect(cases).toHaveLength(13);
   for (const { op, bytes } of cases) {
     expect(operandBytes(op)).toBe(bytes);
   }

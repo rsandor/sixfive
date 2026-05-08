@@ -32,6 +32,10 @@ packages are added ad-hoc.
   library. No runtime deps in any `packages/*/package.json`.
 - Dev dependencies: ask for explicit approval before adding any.
 - Filenames: `kebab-case.ts`.
+- Naming: never abbreviate. Spell identifiers in full
+  (`Instruction`, not `Instr`; `address`, not `addr`;
+  `register`, not `reg`). Established 6502 jargon is fine
+  (`mnemonic`, `opcode`, `zp`, `abs`, `pc`, `sp`).
 - Never read files in `./.tmp/`. Scratch dir, contents off-limits to
   agents (including globs/greps that traverse it).
 - Exports: named only. No `default` exports. No barrel `index.ts`

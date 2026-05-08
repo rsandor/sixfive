@@ -4,6 +4,7 @@
   "type": "module",
   "license": "MIT",
   "exports": {
+    "./ast": "./src/ast.ts",
     "./version": "./src/version.ts"
   }
 }

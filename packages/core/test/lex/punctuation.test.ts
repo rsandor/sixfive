@@ -133,6 +133,34 @@ test("logical and bitwise and/or — maximal munch", () => {
   });
 });
 
+test("colon family — maximal munch", () => {
+  expect(lex("::")).toEqual({
+    tokens: [t("punct", "::", 0, 1, 1, { punct: "::" }), eof(2, 1, 3)],
+    diagnostics: [],
+  });
+  expect(lex(":")).toEqual({
+    tokens: [t("punct", ":", 0, 1, 1, { punct: ":" }), eof(1, 1, 2)],
+    diagnostics: [],
+  });
+  expect(lex(":::")).toEqual({
+    tokens: [
+      t("punct", "::", 0, 1, 1, { punct: "::" }),
+      t("punct", ":", 2, 1, 3, { punct: ":" }),
+      eof(3, 1, 4),
+    ],
+    diagnostics: [],
+  });
+  expect(lex("foo::bar")).toEqual({
+    tokens: [
+      t("ident", "foo", 0, 1, 1),
+      t("punct", "::", 3, 1, 4, { punct: "::" }),
+      t("ident", "bar", 5, 1, 6),
+      eof(8, 1, 9),
+    ],
+    diagnostics: [],
+  });
+});
+
 test("percent followed by binary digit lexes as binary, otherwise punct", () => {
   expect(lex("%")).toEqual({
     tokens: [t("punct", "%", 0, 1, 1, { punct: "%" }), eof(1, 1, 2)],

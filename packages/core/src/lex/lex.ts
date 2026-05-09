@@ -534,6 +534,9 @@ export function lex(source: string): LexResult {
     } else if (c === "|" && c1 === "|") {
       lexeme = "||";
       len = 2;
+    } else if (c === ":" && c1 === ":") {
+      lexeme = "::";
+      len = 2;
     } else if (SINGLE_CHAR_PUNCT.has(c)) {
       lexeme = c as PunctLexeme;
       len = 1;

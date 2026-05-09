@@ -7,12 +7,22 @@
       "devDependencies": {
         "@biomejs/biome": "^2.4.14",
         "@types/bun": "^1.3.13",
-        "typescript": "^6.0.3"
+        "typescript": "^6.0.3",
       },
     },
     "packages/core": {
       "name": "@sixfive/core",
-      "version": "0.0.0"
+      "version": "0.0.0",
+    },
+    "packages/qa": {
+      "name": "@sixfive/qa",
+      "version": "0.0.0",
+      "bin": {
+        "qa-lex": "./src/lex.ts",
+      },
+      "dependencies": {
+        "@sixfive/core": "workspace:*",
+      },
     },
   },
   "packages": {
@@ -35,6 +45,8 @@
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.4.14", "", { "os": "win32", "cpu": "x64" }, "sha512-WL0EG5qE+EAKomGXbf2g6VnSKJhTL3tXC0QRzWRwA5VpjxNYa6H4P7ZWfymbGE4IhZZQi1KXQ2R0YjwInmz2fA=="],
 
     "@sixfive/core": ["@sixfive/core@workspace:packages/core"],
+
+    "@sixfive/qa": ["@sixfive/qa@workspace:packages/qa"],
 
     "@types/bun": ["@types/bun@1.3.13", "", { "dependencies": { "bun-types": "1.3.13" } }, "sha512-9fqXWk5YIHGGnUau9TEi+qdlTYDAnOj+xLCmSTwXfAIqXr2x4tytJb43E9uCvt09zJURKXwAtkoH4nLQfzeTXw=="],
 

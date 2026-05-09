@@ -1,0 +1,13 @@
+{
+  "name": "@sixfive/qa",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "bin": {
+    "qa-lex": "./src/lex.ts"
+  },
+  "dependencies": {
+    "@sixfive/core": "workspace:*"
+  }
+}

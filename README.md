@@ -36,4 +36,26 @@ _Coming soon._
 
 ## Tools
 
-_Coming soon._
+### qa-lex
+
+Lexer dump for a 6502 assembly source file. Prints tokens grouped by
+line, with kind, lexeme, position, and decoded value where applicable.
+Errors go to stderr; exit `1` on lex errors, `2` on bad usage.
+
+Build:
+
+```
+bun build --compile packages/qa/src/lex.ts --outfile dist/qa-lex
+```
+
+Use:
+
+```
+./dist/qa-lex <file>
+```
+
+Run without compiling:
+
+```
+bun packages/qa/src/lex.ts <file>
+```

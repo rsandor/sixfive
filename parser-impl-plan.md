@@ -58,7 +58,8 @@ Add `Node` variants:
 - `section` — `name: string`
 - `proc` — `name: string; doc?: string; children: Node[]`
 - `macro` — `name: string; params: string[]; doc?: string; children`
-- `if` — `cond: Expr; then: Node[]; else?: Node[]`
+- `if` — `cond: Expr; thenBranch: Node[]; elseBranch?: Node[]`
+  (`then` is reserved by Biome's `noThenProperty` lint — thenable risk)
 - `for` — `binder: string; range: Expr (range-kind); children`
 - `meta` — `name: "cpu"|"assert"|"align"|"allow"; args: Expr[]`
 - `call-stmt` — `callee: string; args: Expr[]` (statement-position macro

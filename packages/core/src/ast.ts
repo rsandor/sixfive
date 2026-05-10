@@ -1,12 +1,63 @@
 type Pos = { line: number; col: number; offset: number };
 type Span = { start: Pos; end: Pos };
-type SymbolRef = { name: string };
-type Value = number | SymbolRef;
 
 type Base<K extends string> = {
   kind: K;
   span: Span;
 };
+
+// ---- Expressions --------------------------------------------------------
+
+export type BinaryOp =
+  | "*"
+  | "/"
+  | "%"
+  | "+"
+  | "-"
+  | "<<"
+  | ">>"
+  | "<"
+  | "<="
+  | ">"
+  | ">="
+  | "=="
+  | "!="
+  | "&"
+  | "^"
+  | "|"
+  | "&&"
+  | "||";
+
+export type UnaryOp = "-" | "~" | "!";
+
+export type Expr =
+  | (Base<"lit-int"> & { value: number })
+  | (Base<"lit-str"> & { value: string })
+  | (Base<"ref"> & { name: string })
+  | (Base<"unary"> & { op: UnaryOp; rhs: Expr })
+  | (Base<"binary"> & { op: BinaryOp; lhs: Expr; rhs: Expr })
+  | (Base<"call"> & { callee: string; args: Expr[] })
+  | (Base<"paren"> & { inner: Expr })
+  | (Base<"range"> & { lo: Expr; hi: Expr; inclusive: boolean });
+
+// ---- Operands -----------------------------------------------------------
+
+export type Operand =
+  | { mode: "implied" }
+  | { mode: "accumulator" }
+  | { mode: "immediate"; value: Expr }
+  | { mode: "zp"; value: Expr }
+  | { mode: "zp-x"; value: Expr }
+  | { mode: "zp-y"; value: Expr }
+  | { mode: "abs"; value: Expr }
+  | { mode: "abs-x"; value: Expr }
+  | { mode: "abs-y"; value: Expr }
+  | { mode: "indirect"; value: Expr }
+  | { mode: "ind-x"; value: Expr }
+  | { mode: "ind-y"; value: Expr }
+  | { mode: "relative"; target: Expr };
+
+// ---- Statements / declarations ------------------------------------------
 
 type Program = Base<"program"> & {
   children: Node[];
@@ -17,21 +68,6 @@ type Label = Base<"label"> & {
   children: [];
 };
 
-type Operand =
-  | { mode: "implied" }
-  | { mode: "accumulator" }
-  | { mode: "immediate"; value: Value }
-  | { mode: "zp"; value: Value }
-  | { mode: "zp-x"; value: Value }
-  | { mode: "zp-y"; value: Value }
-  | { mode: "abs"; value: Value }
-  | { mode: "abs-x"; value: Value }
-  | { mode: "abs-y"; value: Value }
-  | { mode: "indirect"; value: Value }
-  | { mode: "ind-x"; value: Value }
-  | { mode: "ind-y"; value: Value }
-  | { mode: "relative"; target: Value };
-
 type Instruction = Base<"instr"> & {
   mnemonic: string;
   operand: Operand;
@@ -39,22 +75,91 @@ type Instruction = Base<"instr"> & {
 };
 
 type DataByte = Base<"data-byte"> & {
-  values: Value[];
+  label: string;
+  values: Expr[];
   children: [];
 };
 
 type DataWord = Base<"data-word"> & {
-  values: Value[];
+  label: string;
+  values: Expr[];
   children: [];
 };
 
-type Repeat = Base<"repeat"> & {
-  count: number;
-  children: Node[];
+type DataAscii = Base<"data-ascii"> & {
+  label: string;
+  parts: Expr[];
+  children: [];
+};
+
+type DataRes = Base<"data-res"> & {
+  label: string;
+  count: Expr;
+  children: [];
+};
+
+type DataFill = Base<"data-fill"> & {
+  label: string;
+  count: Expr;
+  value: Expr;
+  children: [];
+};
+
+type ConstDecl = Base<"const-decl"> & {
+  name: string;
+  value: Expr;
+  children: [];
+};
+
+type Section = Base<"section"> & {
+  name: string;
+  children: [];
 };
 
 type Origin = Base<"origin"> & {
-  address: Value;
+  address: Expr;
+  children: [];
+};
+
+type Proc = Base<"proc"> & {
+  name: string;
+  doc?: string;
+  children: Node[];
+};
+
+type Macro = Base<"macro"> & {
+  name: string;
+  params: string[];
+  doc?: string;
+  children: Node[];
+};
+
+type If = Base<"if"> & {
+  cond: Expr;
+  thenBranch: Node[];
+  elseBranch?: Node[];
+};
+
+type Repeat = Base<"repeat"> & {
+  count: Expr;
+  children: Node[];
+};
+
+type For = Base<"for"> & {
+  binder: string;
+  range: Expr;
+  children: Node[];
+};
+
+type Meta = Base<"meta"> & {
+  name: "cpu" | "assert" | "align" | "allow";
+  args: Expr[];
+  children: [];
+};
+
+type CallStmt = Base<"call-stmt"> & {
+  callee: string;
+  args: Expr[];
   children: [];
 };
 
@@ -64,5 +169,16 @@ export type Node =
   | Instruction
   | DataByte
   | DataWord
+  | DataAscii
+  | DataRes
+  | DataFill
+  | ConstDecl
+  | Section
+  | Origin
+  | Proc
+  | Macro
+  | If
   | Repeat
-  | Origin;
+  | For
+  | Meta
+  | CallStmt;

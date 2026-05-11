@@ -59,3 +59,29 @@ Run without compiling:
 ```
 bun packages/qa/src/lex.ts <file>
 ```
+
+### qa-parse
+
+Parser dump for a 6502 assembly source file. Prints the AST as an
+indented `tree(1)`-style outline, with kind tags, expression structure,
+and line markers. `--spans` adds full start→end ranges to every node.
+`--docs` includes captured `proc`/`macro` doc text. Errors go to
+stderr; exit `1` on lex or parse errors, `2` on bad usage.
+
+Build:
+
+```
+bun build --compile packages/qa/src/parse.ts --outfile dist/qa-parse
+```
+
+Use:
+
+```
+./dist/qa-parse [--spans] [--docs] <file>
+```
+
+Run without compiling:
+
+```
+bun packages/qa/src/parse.ts <file>
+```

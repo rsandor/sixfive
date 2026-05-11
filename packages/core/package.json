@@ -9,6 +9,7 @@
     "./lex": "./src/lex/lex.ts",
     "./lex/token": "./src/lex/token.ts",
     "./lex/diagnostic": "./src/lex/diagnostic.ts",
+    "./parse": "./src/parse/parse.ts",
     "./parse/cursor": "./src/parse/cursor.ts",
     "./parse/keywords": "./src/parse/keywords.ts",
     "./parse/diagnostic": "./src/parse/diagnostic.ts"

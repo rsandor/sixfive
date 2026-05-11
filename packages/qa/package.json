@@ -5,7 +5,8 @@
   "license": "MIT",
   "private": true,
   "bin": {
-    "qa-lex": "./src/lex.ts"
+    "qa-lex": "./src/lex.ts",
+    "qa-parse": "./src/parse.ts"
   },
   "dependencies": {
     "@sixfive/core": "workspace:*"

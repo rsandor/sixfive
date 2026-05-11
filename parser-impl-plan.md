@@ -237,9 +237,9 @@ list (matching the lexer's contract).
 
 ## Build order
 
-Each item = one PR, AST already extended in phase 1.
+AST already extended in phase 1.
 
-1. Cursor + keywords + diagnostic codes.
+1. Cursor + keywords + diagnostic codes. **[done]**
 2. Pratt expressions (drives most operator coverage).
 3. Operand recognizer.
 4. Instructions.
@@ -250,6 +250,21 @@ Each item = one PR, AST already extended in phase 1.
 9. Control flow: `if` / `else`, `repeat`, `for`.
 10. Recovery hardening — golden tests for malformed inputs covering
     every statement form's sync behavior.
+11. Wire `parse.ts` entry (replace stub) + add `./parse` to
+    `packages/core/package.json` exports.
+
+## Scope and PR grouping
+
+1. **Expr + operand** (steps 2-3). Self-contained, no statement
+   dispatch yet. ~700 LOC. Foundation — every later PR uses it.
+2. **Flat statements** (steps 4-7): instructions, data decls,
+   const/org/section, meta. Everything single-line / no nested
+   blocks. ~900 LOC. Yields a usable parser for a `qa-parse` dump.
+3. **Block forms** (steps 8-9): proc/macro/if/repeat/for. ~1000 LOC.
+   Recursion + scoping concerns isolated to one review.
+4. **Recovery + entry wiring** (steps 10-11). ~400 LOC, mostly test.
+   Closing PR — golden tests across every form, replace `parse.ts`
+   stub, add `./parse` export.
 
 ## Testing
 
